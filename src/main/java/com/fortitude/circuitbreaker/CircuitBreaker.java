@@ -70,6 +70,30 @@ public class CircuitBreaker {
         }
     }
 
+    public <T> T run(Callable<T> callable, Callable<T> fallback) throws Exception {
+        // fast fail
+        if (isOpen()) {
+            fallback.call();
+            throw new RuntimeException("Fast-fail because Circuit is open");
+        }
+
+        Boolean isSuccess = false;
+        long startedAt = System.nanoTime();
+        try {
+            T result = callable.call();
+            isSuccess = true;
+            return result;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            long completedAt = System.nanoTime();
+            long executionTimeInNano = completedAt - startedAt;
+
+            boolean isSlow = executionTimeInNano > MAX_SLOW;
+            handle(isSuccess, isSlow);
+        }
+    }
+
     private Boolean isOpen() {
         return !isClosed();
     }
