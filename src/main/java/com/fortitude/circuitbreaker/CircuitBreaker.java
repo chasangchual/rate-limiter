@@ -82,6 +82,31 @@ public class CircuitBreaker {
      *  - Evaluates failure and slow-call rates
      *  - Performs state transitions between CLOSE, OPEN, and HALF_OPEN
      *
+     *  State Diagram (High-Level Behavior)
+     *
+     *  Initial State: CLOSE
+     *
+     *  CLOSE → OPEN
+     *      When the failure rate or slow-call rate exceeds the configured threshold.
+     *
+     *  CLOSE → CLOSE
+     *      When metrics remain below threshold.
+     *
+     *  OPEN → HALF_OPEN
+     *      After the configured open-duration has elapsed and a trial call is allowed.
+     *
+     *  OPEN → OPEN
+     *      If the trial call fails or is considered slow.
+     *
+     *  HALF_OPEN → OPEN
+     *      If any trial call fails during the recovery phase.
+     *
+     *  HALF_OPEN → CLOSE
+     *      When a sufficient number of consecutive successful trial calls confirms recovery.
+     *
+     *  HALF_OPEN → HALF_OPEN
+     *      When trial calls are successful but the success threshold has not yet been reached.
+     *
      * Synchronized to protect state mutation.
      */
     private synchronized void handle(boolean isSuccess, boolean isSlow) {
