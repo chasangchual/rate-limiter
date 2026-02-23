@@ -1,11 +1,10 @@
-package com.fortitude.circuitbreaker;
+package com.fortitude.resilience.circuitbreaker;
 
+import com.fortitude.resilience.DownstreamCaller;
 import org.junit.jupiter.api.Test;
 
 import java.util.Random;
 import java.util.stream.IntStream;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class CircuitBreakerTest {
 

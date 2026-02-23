@@ -1,4 +1,4 @@
-package com.fortitude.circuitbreaker;
+package com.fortitude.resilience.circuitbreaker;
 
 public class CircuitCallWindow {
     private final boolean[] failWindow;

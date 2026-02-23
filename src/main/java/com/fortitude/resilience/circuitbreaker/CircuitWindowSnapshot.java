@@ -1,4 +1,4 @@
-package com.fortitude.circuitbreaker;
+package com.fortitude.resilience.circuitbreaker;
 
 public record CircuitWindowSnapshot(int windowSize, int failures, int slows, int totalCalls) {
     public double getFailRate() {

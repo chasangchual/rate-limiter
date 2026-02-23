@@ -1,4 +1,4 @@
-package com.fortitude.circuitbreaker;
+package com.fortitude.resilience.circuitbreaker;
 
 import java.math.BigDecimal;
 import java.util.concurrent.Callable;

@@ -1,4 +1,4 @@
-package com.fortitude.circuitbreaker;
+package com.fortitude.resilience.circuitbreaker;
 
 public enum CircuitBreakerState {
     CLOSE,
